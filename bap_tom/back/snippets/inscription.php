@@ -1,23 +1,6 @@
 <?php
-$message_erreur = "";
-$name = htmlspecialchars($_POST["inscr_name"]);
-$firstName = htmlspecialchars($_POST["inscr_firstName"]);
-$email = htmlspecialchars($_POST["inscr_mail"]);
-$password = htmlspecialchars($_POST["inscr_pass"]);
-$phoneNumber = $_POST["inscr_tel"];
 
-if (isset($_POST['inscription'])) {
-	//Vérification des champs
-	if (filter_var($_POST['inscr_mail'],FILTER_VALIDATE_EMAIL)) {
-        if($_POST['inscr_pass'] === $_POST['inscr_pass_conf']) {
-           // ("INSERT INTO users('name', firstname, mail, 'password', phonenumber) VALUES (:name, :firstname, :mail, :password, :phonenumber", array(':name' => $name, ':firstname' => $firstName, ':mail' => $email, ':password' => password_hash($password, PASSWORD_BCRYPT), ':phonenumber' => $phoneNumber));
-        }else {
-            $message_erreur = "<div class='alert_danger'>Les mots de passe ne correspondent pas</div>";
-        }		
-	} else {
-        $message_erreur = "<div class='alert_danger'>Le format de l'email est incorrect</div>";
-    }
-}
+$message_erreur = "";
 
 include "../../public/includes/head_inc.php" 
 ?>
@@ -28,6 +11,40 @@ include "../../public/includes/head_inc.php"
     <h1>Formulaire inscription client</h1>
     <section>
         <form action="inscription.php" method="POST" id="inscr_form">
+        <input type="hidden" name="inscr_form">
+        <?php
+        if (isset($_POST['inscr_form'])) {
+            //Vérification des champs
+            if(!empty($_POST["inscr_name"]) and !empty($_POST["inscr_firstName"]) and !empty($_POST['inscr_mail']) and !empty($_POST["inscr_pass"]) and !empty($_POST["inscr_tel"])){
+                $name = htmlspecialchars($_POST["inscr_name"]);
+                $firstName = htmlspecialchars($_POST["inscr_firstName"]);
+                $email = htmlspecialchars($_POST["inscr_mail"]);
+                $password = htmlspecialchars($_POST["inscr_pass"]);
+                $hash = password_hash($password, PASSWORD_BCRYPT);
+                $phoneNumber = $_POST["inscr_tel"];
+                if (filter_var($_POST['inscr_mail'],FILTER_VALIDATE_EMAIL)) {
+                    if($_POST['inscr_pass'] === $_POST['inscr_pass_conf']) {
+                        try {
+                            $bdd = new PDO('mysql:host=localhost;dbname=alphascan3d;charset=utf8', 'root', '');
+                            $statement = $bdd->prepare("INSERT INTO users (name, firstname, mail, password, phonenumber) VALUES (?, ?, ?, ?, ?)");
+                            $execution = $statement->execute(array($name, $firstName, $email, $hash ,$phoneNumber));
+                            var_dump($execution);
+                        } catch (Exception $e) {
+                            die("Erreur");
+                        }
+                    } else {
+                        $message_erreur = "<div class='alert_danger'>Les mots de passe ne correspondent pas</div>";
+                    }		
+                } else {
+                    $message_erreur = "<div class='alert_danger'>Le format de l'email est incorrect</div>";
+                }
+            } else {
+                $message_erreur = "<div class='alert_danger'>Formulaire d'inscription incomplet !</div>";
+            }
+        } else {
+            $message_erreur = "<div class='alert_danger'>Erreur</div>";
+        }
+        ?>
             <h2>Inscrivez-vous, c'est gratuit !</h2>
             <?php echo $message_erreur?>
             <div>  

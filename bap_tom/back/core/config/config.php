@@ -2,7 +2,7 @@
 
 $dbConfig = [
     "host" => "localhost",
-    "dbname" => "projetgroupephp",
+    "dbname" => "alphascan3d",
     "dbuser" => "root",
     "dbpass" => ""
 ];
