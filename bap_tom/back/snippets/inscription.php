@@ -4,7 +4,7 @@ $message_erreur = "";
 
 include "../../public/includes/head_inc.php" 
 ?>
-    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/profilstyle.css">
     <title>Forms - Snippet</title>
 </head>
 <body>
@@ -27,10 +27,9 @@ include "../../public/includes/head_inc.php"
                         try {
                             $bdd = new PDO('mysql:host=localhost;dbname=alphascan3d;charset=utf8', 'root', '');
                             $statement = $bdd->prepare("INSERT INTO users (name, firstname, mail, password, phonenumber) VALUES (?, ?, ?, ?, ?)");
-                            $execution = $statement->execute(array($name, $firstName, $email, $hash ,$phoneNumber));
-                            var_dump($execution);
+                            $statement->execute(array($name, $firstName, $email, $hash ,$phoneNumber));
                         } catch (Exception $e) {
-                            die("Erreur");
+                            die("Erreur lors de l'inscription. Désolé pour la gêne occasionnée, réessayez plus tard !");
                         }
                     } else {
                         $message_erreur = "<div class='alert_danger'>Les mots de passe ne correspondent pas</div>";

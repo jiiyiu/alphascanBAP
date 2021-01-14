@@ -1,7 +1,7 @@
 <?php
 include "../../public/includes/head_inc.php" 
 ?>
-    <link rel="stylesheet" href="../../assets/style.css">
+    <link rel="stylesheet" href="../../assets/profilstyle.css">
     <title>Envoi fichier - Snippet</title>
 </head>
 <body>
