@@ -57,6 +57,8 @@ Couleurs et polices :
 	-webkit-transition: .4s;
 	transition: .4s;
 }
+
+/* Changer les couleurs (rouge comme les fonds de boutons) */
   
 input:checked + .slider {
 	background-color: #2196F3;

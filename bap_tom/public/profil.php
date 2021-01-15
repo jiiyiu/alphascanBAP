@@ -75,7 +75,8 @@ $message_erreur = "";
 // }
 ?>
     <div>
-        <form action="profil.php">
+        <form action="profil.php" id="inscr_form">
+            <input type="hidden" name="inscr_form">
             <h2>J'insère mes informations personnelles</h2>
             <div>
                 <input type="text" placeholder="E-mail" name="inscr_mail" id="inscr_mail" required>
@@ -443,12 +444,181 @@ $message_erreur = "";
 </section>
 
 <section FormMdpOublie>
+    <div>
+        <form action="profil.php">
+            <h2>Mot de passe oublié</h2>
+            <div>
+                <p>Si vous avez oublié votre mot de passe, renseignez votre adresse électronique et nous vous enverrons un email contenant les instructions à suivre.</p>
+            </div>
+            <div>
+                <input type="text" placeholder="Entrez votre e-mail" required>
+            </div>
+            <a href="profil.php">Mot de passe oublié</a>
+            <button type="submit" name="action" value="mdpoubli" class="form_buttons">Réinitialiser mon mot de passe</button>
+            <a href="profil.php" class="form_buttons">Revenir à la page de connection</a>
+        </form>
+    </div>
 </section>
 
 <section DashboardClient>
+    <!-- php affichage dashboard ici -->
+    <div>
+        <input type="text" name="search_filter" class="search_filter" placeholder="Recherche">
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date
+                        <input type="button" name="sort_by_date" id="sort_by_date">
+                        <!-- Mettre l'icone des deux flèches en background du bouton -->
+                    </th>
+                    <th>Numéro de commande</th>
+                    <th>Avancement</th>
+                    <th colspan="3">Etat de votre commande</th> 
+                    <!-- Pas sûr du wording sur ça, je t'avoue... -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12/03/2020</td>
+                    <td>00000000000000000</td>
+                    <td>
+                        <!-- Ici j'insère les 3 images mais dans cette version elles sont une à la fois, 
+                            je commente les autres c'est pour montrer le comportement de chaque statut, 
+                            elles doivent s'afficher selon le "statut" de la commande.
+                            Je vais modifier le commentaire en 0 = en attente, 1 = livrée, 2= annulée-->
+                        <img src="../assets/img/status_checked.png" alt="commande livrée">
+                        <!-- <img src="../assets/img/status_waiting.png" alt="commande en cours"> -->
+                        <!-- <img src="../assets/img/status_closed.png" alt="commande annulée"> -->
+                    </td>
+                    <td>
+                        <button type="button" class="dowload_button">Télécharger</button>
+                    </td>
+                    <td>
+                        <button type="button" class="facturation_button">Facture</button>
+                    </td>
+                    <td>
+                        <button type="button" class="annulation_button" disabled>Annuler</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>04/01/2021</td>
+                    <td>00000000000000001</td>
+                    <td>
+                        <!-- Ici j'insère les 3 images, elles doivent s'afficher selon le "statut" de la commande.
+                         Je vais modifier le commentaire en 0 = en attente, 1 = livrée, 2= annulée-->
+                        <!-- <img src="../assets/img/status_checked.png" alt="commande livrée"> -->
+                        <img src="../assets/img/status_waiting.png" alt="commande en cours">
+                        <!-- <img src="../assets/img/status_closed.png" alt="commande annulée"> -->
+                    </td>
+                    <td>
+                        <button type="button" class="dowload_button" disabled>Télécharger</button>
+                    </td>
+                    <td>
+                        <button type="button" class="facturation_button">Facture</button>
+                    </td>
+                    <td>
+                        <button type="button" class="annulation_button">Annuler</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>27/11/2019</td>
+                    <td>00000000000000002</td>
+                    <td>
+                        <!-- Ici j'insère les 3 images, elles doivent s'afficher selon le "statut" de la commande.
+                         Je vais modifier le commentaire en 0 = en attente, 1 = livrée, 2= annulée-->
+                        <!-- <img src="../assets/img/status_checked.png" alt="commande livrée"> -->
+                        <!-- <img src="../assets/img/status_waiting.png" alt="commande en cours"> -->
+                        <img src="../assets/img/status_closed.png" alt="commande annulée">
+                    </td>
+                    <td>
+                        <button type="button" class="dowload_button" disabled>Télécharger</button>
+                    </td>
+                    <td>
+                        <button type="button" class="facturation_button" disabled>Facture</button>
+                    </td>
+                    <td>
+                        <button type="button" class="annulation_button" disabled>Annuler</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <section DashboardAdmin>
+    <!-- php affichage dashboard admin ici -->
+    <!-- Je mets auss le php de l'envoi de fichier dès que je l'ai arrangé ! -->
+    <div>
+        <input type="text" name="search_filter" class="search_filter" placeholder="Recherche">
+    </div>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom
+                        <input type="button" name="sort_by_name" id="sort_by_name">
+                        <!-- Mettre l'icone de la flèche en background du bouton -->
+                        <!-- Moyen de modifier la version -->
+                    </th>
+                    <th>Téléphone</th>
+                    <th>Mail</th>
+                    <th>Adresse de facturation</th> 
+                    <th>Zone de dépôt des réalisations</th>
+                    <th>Factures / Devis</th>
+                    <th>Annuler la commande</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mr Benoit</td>
+                    <td>0606060606</td>
+                    <td>benoit.jean@gmail.com</td>
+                    <td>15 rue des roquettes, <br> 75011 Paris</td>
+                    <td>
+                        <button type="button" class="upload_button">Upload</button>
+                    </td>
+                    <td>
+                        <button type="button" class="upload_button">Upload</button>
+                    </td>
+                    <td>
+                        <button type="button" class="annulation_button" disabled>Supprimer</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mme Marie</td>
+                    <td>0606060607</td>
+                    <td>aude.marie@gmail.com</td>
+                    <td>5 rue Marinioni, <br> 75005 Paris</td>
+                    <td>
+                        <button type="button" class="upload_button">Upload</button>
+                    </td>
+                    <td>
+                        <button type="button" class="upload_button">Upload</button>
+                    </td>
+                    <td>
+                        <button type="button" class="annulation_button" disabled>Supprimer</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mr Auburtin</td>
+                    <td>0606060707</td>
+                    <td>agence.leonardo@gmail.com</td>
+                    <td>1 rue Ordener, <br> 75001 Paris</td>
+                    <td>
+                        <button type="button" class="upload_button">Upload</button>
+                    </td>
+                    <td>
+                        <button type="button" class="upload_button">Upload</button>
+                    </td>
+                    <td>
+                        <button type="button" class="annulation_button" disabled>Supprimer</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <?php 
