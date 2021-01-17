@@ -42,42 +42,64 @@ include "includes/header.inc.php"
 <?php
 
 $message_erreur = "";
-// A corriger
-// if (isset($_POST['inscr_form'])) {
-//     //Vérification des champs
-//     if(!empty($_POST["inscr_name"]) and !empty($_POST["inscr_firstName"]) and !empty($_POST['inscr_mail']) and !empty($_POST["inscr_pass"]) and !empty($_POST["inscr_tel"])){
-//         $name = htmlspecialchars($_POST["inscr_name"]);
-//         $firstName = htmlspecialchars($_POST["inscr_firstName"]);
-//         $email = htmlspecialchars($_POST["inscr_mail"]);
-//         $password = htmlspecialchars($_POST["inscr_pass"]);
-//         $hash = password_hash($password, PASSWORD_BCRYPT);
-//         $phoneNumber = $_POST["inscr_tel"];
-//         if (filter_var($_POST['inscr_mail'],FILTER_VALIDATE_EMAIL)) {
-//             if($_POST['inscr_pass'] === $_POST['inscr_pass_conf']) {
-//                 try {
-//                     $bdd = new PDO('mysql:host=localhost;dbname=alphascan3d;charset=utf8', 'root', '');
-//                     $statement = $bdd->prepare("INSERT INTO users (name, firstname, mail, password, phonenumber) VALUES (?, ?, ?, ?, ?)");
-//                     $statement->execute(array($name, $firstName, $email, $hash ,$phoneNumber));
-//                 } catch (Exception $e) {
-//                     die("Erreur lors de l'inscription. Désolé pour la gêne occasionnée, réessayez plus tard !");
-//                 }
-//             } else {
-//                 $message_erreur = "<div class='alert_danger'>Les mots de passe ne correspondent pas</div>";
-//             }		
-//         } else {
-//             $message_erreur = "<div class='alert_danger'>Le format de l'email est incorrect</div>";
-//         }
-//     } else {
-//         $message_erreur = "<div class='alert_danger'>Formulaire d'inscription incomplet !</div>";
-//     }
-// } else {
-//     $message_erreur = "<div class='alert_danger'>Erreur</div>";
-// }
+
+if (isset($_POST['inscr_form'])) {
+    //Vérification des champs
+    if(!empty($_POST["inscr_name"]) and !empty($_POST["inscr_firstName"]) and !empty($_POST['inscr_mail']) and !empty($_POST["inscr_pass"]) and !empty($_POST["inscr_tel"]) and !empty($_POST["loc_country"]) and !empty($_POST["loc_adresse1"]) and !empty($_POST["loc_codepostal"]) and !empty($_POST["loc_ville"]) and !empty($_POST["loc_departement"])){
+        $name = htmlspecialchars($_POST["inscr_name"]);
+        $firstName = htmlspecialchars($_POST["inscr_firstName"]);
+        $email = htmlspecialchars($_POST["inscr_mail"]);
+        $password = htmlspecialchars($_POST["inscr_pass"]);
+        $hash = password_hash($password, PASSWORD_BCRYPT);
+        $phoneNumber = htmlspecialchars($_POST["inscr_tel"]);
+        $country = htmlspecialchars($_POST["loc_country"]);
+        $adress = htmlspecialchars($_POST["loc_adresse1"]);
+        $adressBis = htmlspecialchars($_POST["loc_adresse2"]);
+        $postcode = htmlspecialchars($_POST["loc_codepostal"]);
+        $city = htmlspecialchars($_POST["loc_ville"]);
+        $department = htmlspecialchars($_POST["loc_departement"]);
+        // $cookies = htmlspecialchars($_POST["politiquecookies"]);
+        // $news = htmlspecialchars($_POST["newsletter"]);
+        var_dump($name);
+        var_dump($firstName);
+        var_dump($email);
+        var_dump($hash);
+        var_dump($phoneNumber);
+        var_dump($country);
+        var_dump($adress);
+        var_dump($adressBis);
+        var_dump($postcode);
+        var_dump($city);
+        var_dump($department);
+
+        if (filter_var($_POST['inscr_mail'],FILTER_VALIDATE_EMAIL)) {
+            if($_POST['inscr_pass'] === $_POST['inscr_pass_conf']) {
+                try {
+                    $bdd = new PDO('mysql:host=localhost;dbname=alphascan3d;charset=utf8', 'root', '');
+                    $statement = $bdd->prepare("INSERT INTO users_info (name, firstname, mail, password, phonenumber, loc_country, loc_adresse1, loc_adresse2, loc_codepostal, loc_ville, loc_departement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $execution = $statement->execute(array($name, $firstName, $email, $hash ,$phoneNumber, $country, $adress, $adressBis, $postcode, $city, $department));
+                    var_dump($execution);
+                } catch (Exception $e) {
+                    die("Erreur lors de l'inscription. Désolé pour la gêne occasionnée, réessayez plus tard !");
+                }
+            } else {
+                $message_erreur = "<div class='alert_danger'>Les mots de passe ne correspondent pas</div>";
+            }		
+        } else {
+            $message_erreur = "<div class='alert_danger'>Le format de l'email est incorrect</div>";
+        }
+    } else {
+        $message_erreur = "<div class='alert_danger'>Formulaire d'inscription incomplet !</div>";
+    }
+} else {
+    $message_erreur = "<div class='alert_danger'>Erreur</div>";
+}
 ?>
     <div>
-        <form action="profil.php" id="inscr_form">
+        <form action="profil.php" id="inscr_form" method="POST">
             <input type="hidden" name="inscr_form">
             <h2>J'insère mes informations personnelles</h2>
+            <?php echo $message_erreur?>
             <div>
                 <input type="text" placeholder="E-mail" name="inscr_mail" id="inscr_mail" required>
             </div>
@@ -425,14 +447,14 @@ $message_erreur = "";
             <div>
                 <div>
                     <label class="switch">
-                        <input type="checkbox" name="newsletter" id="newsletter">
+                        <input type="checkbox" name="newsletter" id="newsletter" value="true">
                         <span class="slider round"></span>
                     </label>
                     <p>J'accepte de recevoir des newsletters par courrier électronique pour me tenir informer.</p>
                 </div>
                 <div>
                     <label class="switch">
-                        <input type="checkbox" name="cookies" id="cookies">
+                        <input type="checkbox" name="cookies" id="cookies" value="true">
                         <span class="slider round"></span>
                     </label>
                     <p>J'accepte la politique de confidentialité et la présence de cookies.</p>
@@ -453,7 +475,6 @@ $message_erreur = "";
             <div>
                 <input type="text" placeholder="Entrez votre e-mail" required>
             </div>
-            <a href="profil.php">Mot de passe oublié</a>
             <button type="submit" name="action" value="mdpoubli" class="form_buttons">Réinitialiser mon mot de passe</button>
             <a href="profil.php" class="form_buttons">Revenir à la page de connection</a>
         </form>
