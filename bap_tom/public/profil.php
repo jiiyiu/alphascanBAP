@@ -4,14 +4,14 @@ include "includes/head_inc.php"
 ?>
     <link rel="stylesheet" href="../assets/css/profilstyle.css">
     <link rel="icon" href="../assets/img/favicon.png">
-    <title>Page profil</title>
+    <title>AlphaScan3D | Votre profil</title>
 </head>
 <?php
 include "includes/header.inc.php"
 ?>
         <li class="nav-item">
             <a class="nav-link" href="profil.php"> 
-                <img src="../assets/img/profile_icon.png" alt="Cliquer ici pour accéder à votre profil !">
+                <img src="../assets/img/profile-user.png" alt="Cliquer ici pour accéder à votre profil !">
                 Profil
                 <!-- Menu déroulant profil ici -->
             </a>
@@ -20,9 +20,9 @@ include "includes/header.inc.php"
     </div>
 </nav>
 
-<section FormConnection>
+<section id="connection_form">
 <!-- Php connection -->
-    <div>
+    <div class="form_container">
         <form action="profil.php">
             <h2>Je me connecte</h2>
             <div>
@@ -31,14 +31,13 @@ include "includes/header.inc.php"
             <div>
                 <input type="text" placeholder="Mot de passe" required>
             </div>
-            <a href="profil.php">Mot de passe oublié</a>
             <button type="submit" name="action" value="connection" class="form_buttons">Se connecter</button>
             <a href="profil.php" class="form_buttons">S'inscrire</a>
         </form>
     </div>
 </section>
 
-<section FormInscription>
+<section id="inscription_form">
 <?php
 
 $message_erreur = "";
@@ -60,25 +59,25 @@ if (isset($_POST['inscr_form'])) {
         $department = htmlspecialchars($_POST["loc_departement"]);
         // $cookies = htmlspecialchars($_POST["politiquecookies"]);
         // $news = htmlspecialchars($_POST["newsletter"]);
-        var_dump($name);
-        var_dump($firstName);
-        var_dump($email);
-        var_dump($hash);
-        var_dump($phoneNumber);
-        var_dump($country);
-        var_dump($adress);
-        var_dump($adressBis);
-        var_dump($postcode);
-        var_dump($city);
-        var_dump($department);
+        // var_dump($name);
+        // var_dump($firstName);
+        // var_dump($email);
+        // var_dump($hash);
+        // var_dump($phoneNumber);
+        // var_dump($country);
+        // var_dump($adress);
+        // var_dump($adressBis);
+        // var_dump($postcode);
+        // var_dump($city);
+        // var_dump($department);
 
         if (filter_var($_POST['inscr_mail'],FILTER_VALIDATE_EMAIL)) {
             if($_POST['inscr_pass'] === $_POST['inscr_pass_conf']) {
                 try {
                     $bdd = new PDO('mysql:host=localhost;dbname=alphascan3d;charset=utf8', 'root', '');
-                    $statement = $bdd->prepare("INSERT INTO users_info (name, firstname, mail, password, phonenumber, loc_country, loc_adresse1, loc_adresse2, loc_codepostal, loc_ville, loc_departement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $execution = $statement->execute(array($name, $firstName, $email, $hash ,$phoneNumber, $country, $adress, $adressBis, $postcode, $city, $department));
-                    var_dump($execution);
+                    $statement = $bdd->prepare("INSERT INTO users_info (email, firstname, 'name', 'password', phonenumber, loc_country, loc_adresse1, loc_adresse2, loc_codepostal, loc_ville, loc_departement) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                    $execution = $statement->execute(array($email, $firstName, $name, $hash ,$phoneNumber, $country, $adress, $adressBis, $postcode, $city, $department));
+                    // var_dump($execution);
                 } catch (Exception $e) {
                     die("Erreur lors de l'inscription. Désolé pour la gêne occasionnée, réessayez plus tard !");
                 }
@@ -91,11 +90,9 @@ if (isset($_POST['inscr_form'])) {
     } else {
         $message_erreur = "<div class='alert_danger'>Formulaire d'inscription incomplet !</div>";
     }
-} else {
-    $message_erreur = "<div class='alert_danger'>Erreur</div>";
 }
 ?>
-    <div>
+    <div class="form_container">
         <form action="profil.php" id="inscr_form" method="POST">
             <input type="hidden" name="inscr_form">
             <h2>J'insère mes informations personnelles</h2>
@@ -320,7 +317,7 @@ if (isset($_POST['inscr_form'])) {
             </div>
             <div>
                 <input type="text" placeholder="Adresse" name="loc_adresse1" id="loc_adresse1" required>
-                <input type="text" placeholder="Complément d'adresse (facultatif)" name="loc_adresse2" id="loc_adresse2" required>
+                <input type="text" placeholder="Complément d'adresse (facultatif)" name="loc_adresse2" id="loc_adresse2">
             </div>
             <div>
                 <input type="tel" placeholder="Code Postal" minlength="5" maxlength="6" name="loc_codepostal" id="loc_codepostal" required>
@@ -444,15 +441,15 @@ if (isset($_POST['inscr_form'])) {
                 <input type="text" placeholder="Ville" name="loc_ville" id="loc_ville" required>
                 <input type="tel" placeholder="Téléphone" minlength="10" maxlength="13" name="inscr_tel" id="inscr_tel" required>
             </div>
-            <div>
-                <div>
+            <div id="toggles">
+                <div class="toggle_container">
                     <label class="switch">
                         <input type="checkbox" name="newsletter" id="newsletter" value="true">
                         <span class="slider round"></span>
                     </label>
                     <p>J'accepte de recevoir des newsletters par courrier électronique pour me tenir informer.</p>
                 </div>
-                <div>
+                <div class="toggle_container">
                     <label class="switch">
                         <input type="checkbox" name="cookies" id="cookies" value="true">
                         <span class="slider round"></span>
@@ -460,28 +457,12 @@ if (isset($_POST['inscr_form'])) {
                     <p>J'accepte la politique de confidentialité et la présence de cookies.</p>
                 </div>
             </div>
-            <button type="submit" name="action" value="inscription" class="form_buttons">S'inscrire'</button>
+            <button type="submit" name="action" value="inscription" class="form_buttons">S'inscrire</button>
         </form>
     </div>
 </section>
 
-<section FormMdpOublie>
-    <div>
-        <form action="profil.php">
-            <h2>Mot de passe oublié</h2>
-            <div>
-                <p>Si vous avez oublié votre mot de passe, renseignez votre adresse électronique et nous vous enverrons un email contenant les instructions à suivre.</p>
-            </div>
-            <div>
-                <input type="text" placeholder="Entrez votre e-mail" required>
-            </div>
-            <button type="submit" name="action" value="mdpoubli" class="form_buttons">Réinitialiser mon mot de passe</button>
-            <a href="profil.php" class="form_buttons">Revenir à la page de connection</a>
-        </form>
-    </div>
-</section>
-
-<section DashboardClient>
+<section id="dashboard_client">
     <!-- php affichage dashboard ici -->
     <div>
         <input type="text" name="search_filter" class="search_filter" placeholder="Recherche">
@@ -568,7 +549,7 @@ if (isset($_POST['inscr_form'])) {
     </div>
 </section>
 
-<section DashboardAdmin>
+<section id="dashboard">
     <!-- php affichage dashboard admin ici -->
     <!-- Je mets auss le php de l'envoi de fichier dès que je l'ai arrangé ! -->
     <div>
