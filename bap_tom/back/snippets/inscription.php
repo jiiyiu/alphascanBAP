@@ -25,7 +25,7 @@ include "../../public/includes/head_inc.php"
                 if (filter_var($_POST['inscr_mail'],FILTER_VALIDATE_EMAIL)) {
                     if($_POST['inscr_pass'] === $_POST['inscr_pass_conf']) {
                         try {
-                            $bdd = new PDO('mysql:host=localhost;dbname=alphascan3d;charset=utf8', 'root', '');
+                            $bdd = new PDO('mysql:host=localhost;dbname=testdb;charset=utf8', 'root', '');
                             $statement = $bdd->prepare("INSERT INTO users (name, firstname, mail, password, phonenumber) VALUES (?, ?, ?, ?, ?)");
                             $statement->execute(array($name, $firstName, $email, $hash ,$phoneNumber));
                         } catch (Exception $e) {

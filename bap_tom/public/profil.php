@@ -553,7 +553,7 @@ if (isset($_POST['inscr_form'])) {
     <!-- php affichage dashboard admin ici -->
     <h2>Attention, vous ne pouvez envoyer qu'un seul fichier à la fois</h2>
 <?php 
-if(isset($_POST['sendfile'])){ 
+if(!empty($_POST['sendfile'])){ 
 $uploaddir = 'uploads/';
 $uploadfile = $uploaddir . basename($_FILES['sendfile']['name']);
 
@@ -569,7 +569,7 @@ $uploadfile = $uploaddir . basename($_FILES['sendfile']['name']);
     </div>
     <div class="table_container">
         <?php echo $message_erreur?>
-        <form action="profil.php" enctype="multipart/form-data" id="sendfile_form" method="post">
+        <form action="profil.php#dashboard" enctype="multipart/form-data" id="sendfile_form" method="post">
             <table>
                 <thead>
                     <tr>
