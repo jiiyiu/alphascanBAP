@@ -551,75 +551,97 @@ if (isset($_POST['inscr_form'])) {
 
 <section id="dashboard">
     <!-- php affichage dashboard admin ici -->
-    <!-- Je mets auss le php de l'envoi de fichier dès que je l'ai arrangé ! -->
+    <h2>Attention, vous ne pouvez envoyer qu'un seul fichier à la fois</h2>
+<?php 
+if(isset($_POST['sendfile'])){ 
+$uploaddir = 'uploads/';
+$uploadfile = $uploaddir . basename($_FILES['sendfile']['name']);
+
+    if (move_uploaded_file($_FILES['sendfile']['tmp_name'], $uploadfile)) {
+        $message_erreur = "<div class='alert_danger'>Envoi de fichier réalisé avec succès</div>";
+    } else {
+        $message_erreur = "<div class='alert_danger'>Erreur lors de la réception du fichier ou faille de sécurité : ANNULATION</div>";
+    }
+}
+?>
     <div>
         <input type="text" name="search_filter" class="search_filter" placeholder="Recherche">
     </div>
     <div class="table_container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom
-                    <button name="sort_by_name" id="sort_by_name"><img src="../assets/img/sortbyname.png" alt="cliquez pour trier par date"></button>
-                        <!-- Mettre l'icone de la flèche en background du bouton -->
-                        <!-- Moyen de modifier la version -->
-                    </th>
-                    <th>Téléphone</th>
-                    <th>Mail</th>
-                    <th>Adresse de facturation</th> 
-                    <th>Zone de dépôt des réalisations</th>
-                    <th>Factures / Devis</th>
-                    <th>Annuler la commande</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Mr Benoit</td>
-                    <td>0606060606</td>
-                    <td>benoit.jean@gmail.com</td>
-                    <td>15 rue des roquettes, <br> 75011 Paris</td>
-                    <td>
-                        <button type="button" class="load_button">Téléverser</button>
-                    </td>
-                    <td>
-                        <button type="button" class="load_button">Téléverser</button>
-                    </td>
-                    <td>
-                        <button type="button" class="annulation_button">Supprimer</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mme Marie</td>
-                    <td>0606060607</td>
-                    <td>aude.marie@gmail.com</td>
-                    <td>5 rue Marinioni, <br> 75005 Paris</td>
-                    <td>
-                        <button type="button" class="load_button">Téléverser</button>
-                    </td>
-                    <td>
-                        <button type="button" class="load_button">Téléverser</button>
-                    </td>
-                    <td>
-                        <button type="button" class="annulation_button">Supprimer</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mr Auburtin</td>
-                    <td>0606060707</td>
-                    <td>agence.leonardo@gmail.com</td>
-                    <td>1 rue Ordener, <br> 75001 Paris</td>
-                    <td>
-                        <button type="button" class="load_button">Téléverser</button>
-                    </td>
-                    <td>
-                        <button type="button" class="load_button">Téléverser</button>
-                    </td>
-                    <td>
-                        <button type="button" class="annulation_button">Supprimer</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <?php echo $message_erreur?>
+        <form action="profil.php" enctype="multipart/form-data" id="sendfile_form" method="post">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom
+                        <button name="sort_by_name" id="sort_by_name"><img src="../assets/img/sortbyname.png" alt="cliquez pour trier par date"></button>
+                            <!-- Mettre l'icone de la flèche en background du bouton -->
+                            <!-- Moyen de modifier la version -->
+                        </th>
+                        <th>Téléphone</th>
+                        <th>Mail</th>
+                        <th>Adresse de facturation</th> 
+                        <th>Zone de dépôt des réalisations</th>
+                        <th>Factures / Devis</th>
+                        <th>Annuler la commande</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mr Benoit</td>
+                        <td>0606060606</td>
+                        <td>benoit.jean@gmail.com</td>
+                        <td>15 rue des roquettes, <br> 75011 Paris</td>
+                        <td>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                            <input type="file" name="sendfile" class="load_button">
+                        </td>
+                        <td>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                            <input type="file" name="sendfile" class="load_button" accept=".pdf">
+                        </td>
+                        <td>
+                            <button type="button" class="annulation_button">Supprimer la commande</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mme Marie</td>
+                        <td>0606060607</td>
+                        <td>aude.marie@gmail.com</td>
+                        <td>5 rue Marinioni, <br> 75005 Paris</td>
+                        <td>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                            <input type="file" name="sendfile" class="load_button">
+                        </td>
+                        <td>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                            <input type="file" name="sendfile" class="load_button" accept=".pdf">
+                        </td>
+                        <td>
+                            <button type="button" class="annulation_button">Supprimer la commande</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Mr Auburtin</td>
+                        <td>0606060707</td>
+                        <td>agence.leonardo@gmail.com</td>
+                        <td>1 rue Ordener, <br> 75001 Paris</td>
+                        <td>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                            <input type="file" name="sendfile" class="load_button">
+                        </td>
+                        <td>
+                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
+                            <input type="file" name="sendfile" class="load_button" accept=".pdf">
+                        </td>
+                        <td>
+                            <button type="button" class="annulation_button">Supprimer la commande</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit" name="action" value="sendfile">Envoyer le fichier</button>
+       </form>
     </div>
 </section>
 

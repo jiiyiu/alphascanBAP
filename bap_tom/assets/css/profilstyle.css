@@ -6,7 +6,7 @@
 
 .alert_danger {
 	width: 50%;
-	margin:auto;
+	margin: auto;
 	text-align: center;
 	border-radius: 0.25em;
 	padding: 10px;
@@ -210,8 +210,22 @@ form input[type=text]::placeholder {
 	font-family: 'Open Sans', sans-serif;
 }
 
-#dashboard_client, #dashboard {
+#dashboard_client {
 	margin: 5% 10%;
+}
+
+#dashboard {
+	margin: 5% 20px;
+}
+
+#dashboard h2 {
+	color: #F5FAFE;
+	text-align: center;
+	padding-bottom: 0;
+}
+
+#dashboard table {
+	font-size: 14px;
 }
 
 #dashboard_client div, #dashboard div {
@@ -241,7 +255,7 @@ td {
 	margin: 5px;
 }
 
-table button {
+table input, button {
 	border: none;
 	border-radius: 10px;
 	padding: 13px 22px;
@@ -314,13 +328,13 @@ button:disabled {
 }
 
 @media screen and (max-width: 1300px) {
-	#dashboard_client, #dashboard {
+	#dashboard_client{
 		margin: 5% 3%;
 		width: 100%;
 	}
 
-	table {
-		width: 70%;
+	#dashboard table {
+		font-size: 10px;
 	}
 }
 
