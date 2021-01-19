@@ -467,12 +467,12 @@ if (isset($_POST['inscr_form'])) {
     <div>
         <input type="text" name="search_filter" class="search_filter" placeholder="Recherche">
     </div>
-    <div>
+    <div class="table_container">
         <table>
             <thead>
                 <tr>
                     <th>Date
-                        <input type="button" name="sort_by_date" id="sort_by_date">
+                        <button id="sort_by_date" name="sort_by_date"><img src="../assets/img/sort.png" alt="cliquez pour trier par date"></button>
                         <!-- Mettre l'icone des deux flèches en background du bouton -->
                     </th>
                     <th>Numéro de commande</th>
@@ -495,7 +495,7 @@ if (isset($_POST['inscr_form'])) {
                         <!-- <img src="../assets/img/status_closed.png" alt="commande annulée"> -->
                     </td>
                     <td>
-                        <button type="button" class="dowload_button">Télécharger</button>
+                        <button type="button" class="load_button">Télécharger</button>
                     </td>
                     <td>
                         <button type="button" class="facturation_button">Facture</button>
@@ -515,7 +515,7 @@ if (isset($_POST['inscr_form'])) {
                         <!-- <img src="../assets/img/status_closed.png" alt="commande annulée"> -->
                     </td>
                     <td>
-                        <button type="button" class="dowload_button" disabled>Télécharger</button>
+                        <button type="button" class="load_button" disabled>Télécharger</button>
                     </td>
                     <td>
                         <button type="button" class="facturation_button">Facture</button>
@@ -535,7 +535,7 @@ if (isset($_POST['inscr_form'])) {
                         <img src="../assets/img/status_closed.png" alt="commande annulée">
                     </td>
                     <td>
-                        <button type="button" class="dowload_button" disabled>Télécharger</button>
+                        <button type="button" class="load_button" disabled>Télécharger</button>
                     </td>
                     <td>
                         <button type="button" class="facturation_button" disabled>Facture</button>
@@ -555,12 +555,12 @@ if (isset($_POST['inscr_form'])) {
     <div>
         <input type="text" name="search_filter" class="search_filter" placeholder="Recherche">
     </div>
-    <div>
+    <div class="table_container">
         <table>
             <thead>
                 <tr>
                     <th>Nom
-                        <input type="button" name="sort_by_name" id="sort_by_name">
+                    <button name="sort_by_name" id="sort_by_name"><img src="../assets/img/sortbyname.png" alt="cliquez pour trier par date"></button>
                         <!-- Mettre l'icone de la flèche en background du bouton -->
                         <!-- Moyen de modifier la version -->
                     </th>
@@ -579,13 +579,13 @@ if (isset($_POST['inscr_form'])) {
                     <td>benoit.jean@gmail.com</td>
                     <td>15 rue des roquettes, <br> 75011 Paris</td>
                     <td>
-                        <button type="button" class="upload_button">Upload</button>
+                        <button type="button" class="load_button">Téléverser</button>
                     </td>
                     <td>
-                        <button type="button" class="upload_button">Upload</button>
+                        <button type="button" class="load_button">Téléverser</button>
                     </td>
                     <td>
-                        <button type="button" class="annulation_button" disabled>Supprimer</button>
+                        <button type="button" class="annulation_button">Supprimer</button>
                     </td>
                 </tr>
                 <tr>
@@ -594,13 +594,13 @@ if (isset($_POST['inscr_form'])) {
                     <td>aude.marie@gmail.com</td>
                     <td>5 rue Marinioni, <br> 75005 Paris</td>
                     <td>
-                        <button type="button" class="upload_button">Upload</button>
+                        <button type="button" class="load_button">Téléverser</button>
                     </td>
                     <td>
-                        <button type="button" class="upload_button">Upload</button>
+                        <button type="button" class="load_button">Téléverser</button>
                     </td>
                     <td>
-                        <button type="button" class="annulation_button" disabled>Supprimer</button>
+                        <button type="button" class="annulation_button">Supprimer</button>
                     </td>
                 </tr>
                 <tr>
@@ -609,13 +609,13 @@ if (isset($_POST['inscr_form'])) {
                     <td>agence.leonardo@gmail.com</td>
                     <td>1 rue Ordener, <br> 75001 Paris</td>
                     <td>
-                        <button type="button" class="upload_button">Upload</button>
+                        <button type="button" class="load_button">Téléverser</button>
                     </td>
                     <td>
-                        <button type="button" class="upload_button">Upload</button>
+                        <button type="button" class="load_button">Téléverser</button>
                     </td>
                     <td>
-                        <button type="button" class="annulation_button" disabled>Supprimer</button>
+                        <button type="button" class="annulation_button">Supprimer</button>
                     </td>
                 </tr>
             </tbody>
