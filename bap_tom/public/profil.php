@@ -498,7 +498,7 @@ if (isset($_POST['inscr_form'])) {
                         <button type="button" class="load_button">Télécharger</button>
                     </td>
                     <td>
-                        <button type="button" class="facturation_button">Facture</button>
+                        <button type="button" class="facturation_button"><a href="uploads/A2DW - Algo.pdf" download="Testfacture.pdf">Facture</a></button>
                     </td>
                     <td>
                         <button type="button" class="annulation_button" disabled>Annuler</button>
@@ -551,39 +551,25 @@ if (isset($_POST['inscr_form'])) {
 
 <section id="dashboard">
     <!-- php affichage dashboard admin ici -->
-    <h2>Attention, vous ne pouvez envoyer qu'un seul fichier à la fois</h2>
-<?php 
-if(!empty($_POST['sendfile'])){ 
-$uploaddir = 'uploads/';
-$uploadfile = $uploaddir . basename($_FILES['sendfile']['name']);
-
-    if (move_uploaded_file($_FILES['sendfile']['tmp_name'], $uploadfile)) {
-        $message_erreur = "<div class='alert_danger'>Envoi de fichier réalisé avec succès</div>";
-    } else {
-        $message_erreur = "<div class='alert_danger'>Erreur lors de la réception du fichier ou faille de sécurité : ANNULATION</div>";
-    }
-}
-?>
+    <h2>Attention, vous ne pouvez envoyer qu'un seul à la fois</h2>
     <div>
         <input type="text" name="search_filter" class="search_filter" placeholder="Recherche">
     </div>
     <div class="table_container">
-        <?php echo $message_erreur?>
-        <form action="profil.php#dashboard" enctype="multipart/form-data" id="sendfile_form" method="post">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nom
-                        <button name="sort_by_name" id="sort_by_name"><img src="../assets/img/sortbyname.png" alt="cliquez pour trier par date"></button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom
+                    <button name="sort_by_name" id="sort_by_name"><img src="../assets/img/sortbyname.png" alt="cliquez pour trier par date"></button>
                             <!-- Mettre l'icone de la flèche en background du bouton -->
                             <!-- Moyen de modifier la version -->
-                        </th>
-                        <th>Téléphone</th>
-                        <th>Mail</th>
-                        <th>Adresse de facturation</th> 
-                        <th>Zone de dépôt des réalisations</th>
-                        <th>Factures / Devis</th>
-                        <th>Annuler la commande</th>
+                    </th>
+                    <th>Téléphone</th>
+                    <th>Mail</th>
+                    <th>Adresse de facturation</th> 
+                    <th>Zone de dépôt des réalisations</th>
+                    <th>Factures / Devis</th>
+                    <th>Annuler la commande</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -593,12 +579,10 @@ $uploadfile = $uploaddir . basename($_FILES['sendfile']['name']);
                         <td>benoit.jean@gmail.com</td>
                         <td>15 rue des roquettes, <br> 75011 Paris</td>
                         <td>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                            <input type="file" name="sendfile" class="load_button">
+                            <button type="button" class="load_button"><a href="envoi_fichier.php">Téléverser le projet</a></button>
                         </td>
                         <td>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                            <input type="file" name="sendfile" class="load_button" accept=".pdf">
+                            <button type="button" class="load_button"><a href="envoi_fichier.php">Téléverser la facture</a></button>
                         </td>
                         <td>
                             <button type="button" class="annulation_button">Supprimer la commande</button>
@@ -610,12 +594,10 @@ $uploadfile = $uploaddir . basename($_FILES['sendfile']['name']);
                         <td>aude.marie@gmail.com</td>
                         <td>5 rue Marinioni, <br> 75005 Paris</td>
                         <td>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                            <input type="file" name="sendfile" class="load_button">
+                            <button type="button" class="load_button"><a href="envoi_fichier.php">Téléverser le projet</a></button>
                         </td>
                         <td>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                            <input type="file" name="sendfile" class="load_button" accept=".pdf">
+                            <button type="button" class="load_button"><a href="envoi_fichier.php">Téléverser la facture</a></button>
                         </td>
                         <td>
                             <button type="button" class="annulation_button">Supprimer la commande</button>
@@ -627,21 +609,17 @@ $uploadfile = $uploaddir . basename($_FILES['sendfile']['name']);
                         <td>agence.leonardo@gmail.com</td>
                         <td>1 rue Ordener, <br> 75001 Paris</td>
                         <td>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                            <input type="file" name="sendfile" class="load_button">
+                            <button type="button" class="load_button"><a href="envoi_fichier.php">Téléverser le projet</a></button>
                         </td>
                         <td>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
-                            <input type="file" name="sendfile" class="load_button" accept=".pdf">
+                            <button type="button" class="load_button"><a href="envoi_fichier.php">Téléverser la facture</a></button>
                         </td>
                         <td>
                             <button type="button" class="annulation_button">Supprimer la commande</button>
                         </td>
                     </tr>
                 </tbody>
-            </table>
-            <button type="submit" name="action" value="sendfile">Envoyer le fichier</button>
-       </form>
+        </table>
     </div>
 </section>
 
